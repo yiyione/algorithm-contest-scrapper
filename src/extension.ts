@@ -33,7 +33,7 @@ export function activate(context: ExtensionContext) {
 
             for (let problem in problems) {
                 const problemPath = path.join(workspace.rootPath, problem);
-                createHelperFiles(context.extensionPath, problemPath);
+                createProject(problemPath);
 
                 let inOuts = problems[problem];
                 for (let i = 0; i < inOuts.length; i++) {
@@ -53,8 +53,10 @@ export function activate(context: ExtensionContext) {
     context.subscriptions.push(disposable);
 }
 
-function createHelperFiles(extensionPath: string, problemDirPath: string) {
-    fse.copySync(path.resolve(extensionPath, 'res/.vscode'), path.join(problemDirPath, '.vscode'));
+function createProject(problemDirPath: string) {
+    const { exec } = require('child_process');
+    // please make sure already install the codeforces template nuget
+    exec('cd ' + problemDirPath + ' & dotnet new codeforces');
 }
 
 // this method is called when your extension is deactivated
