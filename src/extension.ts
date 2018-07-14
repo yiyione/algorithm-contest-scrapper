@@ -56,7 +56,7 @@ export function activate(context: ExtensionContext) {
 function createProject(problemDirPath: string) {
     const { exec } = require('child_process');
     // please make sure already install the codeforces template nuget
-    exec('cd ' + problemDirPath + ' & dotnet new codeforces');
+    exec('cd ' + problemDirPath + ' & dotnet new codeforces & dotnet restore');
 }
 
 // this method is called when your extension is deactivated
