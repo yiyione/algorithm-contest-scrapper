@@ -31,6 +31,9 @@ export function activate(context: ExtensionContext) {
             const scrapper = new CodeForcesScrapper(value);
             const problems = await scrapper.getProblems();
 
+            const { exec } = require('child_process');
+            exec('dotnet new -i Codeforces.ConsoleTemplate.CSharp');
+
             for (let problem in problems) {
                 const problemPath = path.join(workspace.rootPath, problem);
                 createProject(problemPath);
@@ -55,7 +58,6 @@ export function activate(context: ExtensionContext) {
 
 function createProject(problemDirPath: string) {
     const { exec } = require('child_process');
-    // please make sure already install the codeforces template nuget
     exec('cd ' + problemDirPath + ' & dotnet new codeforces & dotnet restore');
 }
 
